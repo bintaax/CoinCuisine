@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Mon Coin Cuisine{% endblock %}
+
+{% block body %}
+<!-- Conteneur principal: Centrage total sur la page -->
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+
+    <!-- Carte de Connexion -->
+    <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-xl shadow-2xl space-y-6 transform transition duration-500 ease-in-out hover:shadow-xl">
+        
+        <!-- Titre de la carte -->
+        <h1 class="text-3xl font-extrabold text-center text-gray-900">
+            Connectez-vous à votre Espace
+        </h1>
+        
+        <!-- Formulaire de Connexion -->
+        <form method="post" class="space-y-6">
+
+            <!-- Affichage des Erreurs/Messages -->
+            {% if error %}
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
+                    Vous êtes déjà connecté(e) en tant que **{{ app.user.userIdentifier }}**. 
+                    <a href="{{ path('app_logout') }}" class="font-medium text-blue-600 hover:underline">Déconnexion</a>
+                </div>
+            {% endif %}
+
+            <!-- Champ Email -->
+            <div>
+                <label for="inputEmail" class="block text-sm font-medium text-gray-700 mb-1">Adresse Email</label>
+                <input 
+                    type="email" 
+                    value="{{ last_username }}" 
+                    name="email" 
+                    id="inputEmail" 
+                    class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm transition" 
+                    autocomplete="email" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <!-- Champ Mot de Passe -->
+            <div>
+                <label for="inputPassword" class="block text-sm font-medium text-gray-700 mb-1">Mot de Passe</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="inputPassword" 
+                    class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm transition" 
+                    autocomplete="current-password" 
+                    required
+                >
+            </div>
+            
+            <!-- Token CSRF (Important pour la sécurité) -->
+            <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+
+            <!-- Se Souvenir de Moi & Lien Oublié -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input id="remember-me" name="_remember_me" type="checkbox" class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded">
+                    <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                        Se souvenir de moi
+                    </label>
+                </div>
+                <!-- Vous pouvez ajouter un lien "Mot de passe oublié ?" ici -->
+                {# 
+                <div class="text-sm">
+                    <a href="#" class="font-medium text-orange-600 hover:text-orange-500">Mot de passe oublié ?</a>
+                </div> 
+                #}
+            </div>
+
+            <!-- Bouton de Connexion -->
+            <div>
+                <button 
+                    type="submit" 
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition duration-150 ease-in-out transform hover:scale-[1.005]"
+                >
+                    Se connecter
+                </button>
+            </div>
+            
+        </form>
+        
+        <!-- Section Inscription (si applicable) -->
+        <div class="mt-6 text-center text-sm">
+            <p class="text-gray-600">
+                Pas encore de compte ? 
+                <a href="{{ path('app_register') }}" class="font-medium text-orange-600 hover:text-orange-500">Créer un compte</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+# config/packages/security.yaml
+security:
+    # Gestion du mot de passe
+    password_hashers:
+        App\Entity\User:
+            algorithm: auto
+
+    # Fournisseur d'utilisateurs
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    # Firewalls
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\ConnexionAuthenticator
+            logout:
+                path: app_logout
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 semaine
+
+    # Contrôle d'accès
+    access_control:
+        # Seules les personnes connectées peuvent accéder aux recettes
+        - { path: ^/recipe, roles: ROLE_USER }
+

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Mon Coin Cuisine{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+
+    <div class="bg-white shadow-xl rounded-2xl p-6 sm:p-10 lg:p-12 max-w-4xl w-full text-center transform hover:scale-[1.01] transition duration-500 ease-in-out">
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4">
+            Bienvenue dans votre <span class="text-orange-600">Coin Cuisine</span> ! 🍳
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-gray-600 mb-8">
+            Découvrez l'inspiration culinaire, des astuces de chef, et des recettes pour tous les goûts.
+        </p>
+
+        <a href="{{ path('app_recipe') }}" class="inline-block px-8 py-4 text-xl font-semibold text-white bg-orange-500 rounded-full shadow-lg hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-300 focus:ring-opacity-75">
+            Explorer les Recettes Maintenant ! 📚
+        </a>
+
+        <p class="mt-10 text-sm text-gray-400">
+            Commencez votre aventure gourmande aujourd'hui !
+        </p>
+        
+    </div>
+
+    <div class="mt-8 text-center">
+        <p class="text-gray-700 text-base">
+            <span class="font-bold">Astuce du jour :</span> N'ayez pas peur d'ajouter une pincée d'amour à chaque plat ! 😉
+        </p>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les Recettes - Mon Coin Cuisine{% endblock %}
+
+{% block body %}
+<div class="bg-gray-50 min-h-screen p-4 sm:p-8 lg:p-12">
+
+    {# Header avec bienvenue et déconnexion #}
+    <header class="flex justify-between items-center mb-10 max-w-7xl mx-auto">
+        <div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
+                Nos Délicieuses Recettes 🍽️
+            </h1>
+            <p class="text-xl text-gray-600">
+                Trouvez l'inspiration pour votre prochain repas.
+            </p>
+            {% if app.user %}
+                <p class="text-gray-700 mt-2">Bienvenue, <span class="font-semibold">{{ app.user.firstName}}</span> !</p>
+            {% endif %}
+        </div>
+
+        {% if app.user %}
+            <form action="{{ path('app_logout') }}" method="post">
+                <button type="submit" class="py-2 px-4 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition">
+                    Déconnexion
+                </button>
+            </form>
+        {% endif %}
+    </header>
+
+    {# Vérifie qu'il y a des recettes #}
+    {% if recipes is defined and recipes|length > 0 %}
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {% for recipe in recipes %}
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 ease-in-out hover:shadow-xl hover:scale-[1.02]">
+
+             {#        <div class="h-48 w-full bg-orange-200 flex items-center justify-center text-gray-600 font-semibold text-lg">
+                        {% if recipe.image %}
+                            <img src="{{ asset('uploads/' ~ recipe.image) }}" alt="{{ recipe.title }}" class="h-full w-full object-cover">
+                        {% else %}
+                            [Image de la Recette]
+                        {% endif %}
+                    </div> #}
+
+                    <div class="p-5">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2 truncate">{{ recipe.title }}</h2>
+
+                        <p class="text-sm text-gray-500 mb-2 line-clamp-3">
+                            {{ recipe.description }}
+                        </p>
+
+                        <p class="text-sm text-gray-600 mb-2">
+                            <span class="font-semibold">Ingrédients:</span> {{ recipe.ingredients }}
+                        </p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                            <span class="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full font-medium">
+                                ⏱️ {{ recipe.preparationTime }} min
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-medium">
+                                {{ recipe.difficulty }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="mt-12 text-center p-8 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+            <p class="text-xl text-gray-700">Aucune recette trouvée pour le moment. Revenez bientôt !</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
