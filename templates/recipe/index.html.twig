@@ -8,15 +8,16 @@
     {# Header avec bienvenue et déconnexion #}
     <header class="flex justify-between items-center mb-10 max-w-7xl mx-auto">
         <div>
+         {% if app.user %}
+                <p class="text-gray-700 mt-2">Bienvenue, <span class="font-semibold">{{ app.user.firstName}}</span> !</p>
+            {% endif %}
             <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
                 Nos Délicieuses Recettes 🍽️
             </h1>
             <p class="text-xl text-gray-600">
                 Trouvez l'inspiration pour votre prochain repas.
             </p>
-            {% if app.user %}
-                <p class="text-gray-700 mt-2">Bienvenue, <span class="font-semibold">{{ app.user.firstName}}</span> !</p>
-            {% endif %}
+           
         </div>
 
         {% if app.user %}
