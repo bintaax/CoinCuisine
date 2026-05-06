@@ -1,5 +1,4 @@
-vendor/
-node_modules/
-var/
-public/build/
-.env.local
+vendor
+node_modules
+var
+.git
